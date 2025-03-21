@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherApp.ClickedOnFavorite"
+             Title="Weather of favorite"
+             BackgroundColor="White">
+    <Grid RowDefinitions="Auto, Auto, *, Auto, Auto" ColumnDefinitions="*, Auto">
+        <!-- Fejléc -->
+        <StackLayout Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" Padding="20,20,20,0" Spacing="10">
+            <!-- Bal oldali gombok és Your location -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Spacing="10">
+                <!-- Settings -->
+                <!--<ImageButton
+                    Source="settings.png"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="30"
+                    WidthRequest="30"
+                    Clicked="ImageButton_Clicked_2"/>
+                --><!-- Favorites --><!--
+                <ImageButton
+                    Source="favs.png"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="30"
+                    WidthRequest="30"
+                    Clicked="ImageButton_Clicked_3"/>-->
+                <!--<Frame Padding="10" CornerRadius="25" HasShadow="True" BorderColor="LightGray">
+                    <Label Text="Your location" FontSize="Default" />
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapLocation" Tapped="TapLocation_Tapped" />
+                    </Frame.GestureRecognizers>
+                </Frame>-->
+            </StackLayout>
+            <!-- Search gomb a jobb felső sarokban -->
+            <ImageButton
+                    Source="search.png"
+                    HeightRequest="30"
+                    WidthRequest="30"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    Clicked="ImageButton_Clicked" />
+        </StackLayout>
+
+        <!-- Város neve és időjárás leírás -->
+        <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Orientation="Vertical" VerticalOptions="Center" Padding="0,10">
+            <Label x:Name="labelCity" 
+                    FontSize="40" 
+                    HorizontalOptions="Center"
+                    TextColor="Black" />
+            <Button Text="Remove from favorites"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Grid.Column="1" 
+                    Clicked="Button_Clicked"
+                    BackgroundColor="White"
+                    Margin="10"
+                    TextColor="#FF5733"
+                    BorderWidth="2"
+                    BorderColor="#FF5733"
+                    FontSize="17"
+                    CornerRadius="17"
+                    HeightRequest="20"/>
+            <Label x:Name="labelWeatherDescription" 
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    TextColor="Black" />
+        </StackLayout>
+
+        <!-- Időjárás ikon -->
+        <Image Grid.Row="2" Grid.ColumnSpan="2"
+               x:Name="ImgWheatericon"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               HeightRequest="200"
+               WidthRequest="200" />
+
+        <!-- Részletek (páratartalom, hőmérséklet, szél) -->
+        <Grid Grid.Row="3" Grid.ColumnSpan="2"
+              RowDefinitions="Auto, Auto"
+              ColumnDefinitions="*, *, *"
+              Margin="20">
+            <Image Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HeightRequest="25" Source="humidity.png" />
+            <Label x:Name="lblHumidity" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" TextColor="Black" />
+            <Label x:Name="labelTemperature" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" HorizontalOptions="Center" FontSize="40" FontAttributes="Bold" TextColor="Black" />
+            <Image Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HeightRequest="25" Source="windy.png" />
+            <Label x:Name="labelWind" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" TextColor="Black" />
+        </Grid>
+
+        <!-- Pár napi időjárás előrejelzés -->
+        <CollectionView Grid.Row="4" Grid.ColumnSpan="2"
+                        x:Name="cityWeather"
+                        HeightRequest="200">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="20" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*">
+                        <Image Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start" HeightRequest="30" WidthRequest="30" Source="{Binding weather[0].fullIconUrl}" />
+                        <Label Grid.Row="1" FontSize="Large" HorizontalOptions="Center" Text="{Binding main.temperature}" TextColor="Black" />
+                        <Label Grid.Row="2" HorizontalOptions="Center" FontSize="Small" Text="{Binding dateTime}" TextColor="Black" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
